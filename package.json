@@ -1,0 +1,14 @@
+{
+  "name": "ubiq-agentic2flow",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "2Flow parser and multi-framework code generator",
+  "scripts": {
+    "test": "node --test",
+    "check": "node src/cli.js check examples/supplier-to-marketing-customer.2flow",
+    "generate:langgraph": "node src/cli.js generate examples/supplier-to-marketing-customer.2flow --target langgraph --out generated/langgraph",
+    "generate:all": "node src/cli.js generate examples/supplier-to-marketing-customer.2flow --target all --out generated"
+  },
+  "engines": { "node": ">=20" }
+}
