@@ -42,6 +42,44 @@ workflow Research {
 }
 ```
 
+## Business operations graph: Supplier to Marketing and Customer
+
+The workflow runs the first five departments sequentially. After **Sales**, execution forks into two independent branches: **Marketing** and **Customer**. Both branches can run in parallel.
+
+```mermaid
+flowchart TD
+    Supplier --> Stock
+    Stock --> Financial
+    Financial --> Accounting
+    Accounting --> Sales
+    Sales --> Marketing
+    Sales --> Customer
+```
+
+The same topology in 2Flow:
+
+```2flow
+workflow BusinessOperations {
+  node Supplier
+  node Stock
+  node Financial
+  node Accounting
+  node Sales
+  node Marketing
+  node Customer
+
+  Supplier -> Stock
+  Stock -> Financial
+  Financial -> Accounting
+  Accounting -> Sales
+  Sales -> [Marketing, Customer]
+}
+```
+
+`A -> [B, C]` is a parallel fan-out: B and C become eligible after A and do not depend on each other. This example intentionally has no join because the requested flow ends at the two parallel branches.
+
+[Open the complete example](./examples/supplier-to-marketing-customer.2flow).
+
 ## Control flow
 
 ```2flow
@@ -58,9 +96,9 @@ workflow Review {
 ```
 
 - `A -> B`: directed transition.
+- `A -> [B, C]`: parallel fan-out to B and C.
 - `-[condition]->`: conditional edge.
 - Cycles represent loops; define an exit condition to avoid unbounded execution.
-- Parallel branches are represented by fork/join nodes.
 - `END` marks terminal execution.
 - State and input declarations are workflow-scoped.
 

@@ -1,0 +1,15 @@
+workflow BusinessOperations {
+  node Supplier
+  node Stock
+  node Financial
+  node Accounting
+  node Sales
+  node Marketing
+  node Customer
+
+  Supplier -> Stock
+  Stock -> Financial
+  Financial -> Accounting
+  Accounting -> Sales
+  Sales -> [Marketing, Customer]
+}
